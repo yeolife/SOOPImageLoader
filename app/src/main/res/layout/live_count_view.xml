@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_8"
+    android:layout_marginTop="@dimen/padding_12"
+    android:background="@drawable/live_rounded"
+    android:elevation="@dimen/padding_8">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv_onAir"
+        android:layout_width="@dimen/size_8"
+        android:layout_height="@dimen/size_8"
+        android:layout_marginEnd="@dimen/padding_12"
+        android:background="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_count"
+        app:shapeAppearanceOverlay="@style/Circle" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_10"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/siv_onAir"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2,979" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
