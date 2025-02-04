@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/padding_3"
-        android:background="@drawable/category_rounded"
+        android:background="@drawable/rounded_category"
         android:gravity="center"
         android:padding="@dimen/padding_8"
         android:textColor="@color/gray_medium"
