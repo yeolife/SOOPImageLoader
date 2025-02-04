@@ -1,8 +1,8 @@
-package com.example.soopimageloader.data.model
+package com.example.soopimageloader.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Category(
+data class CategoryDto(
     @SerializedName("category_no")
     val categoryNo: String,
     @SerializedName("category_name")

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -26,12 +28,19 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -46,12 +55,27 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Image Loader
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+    // Lifecycle
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation ("androidx.fragment:fragment-ktx:1.8.5")
 
-    // 크롤링
-    implementation ("org.jsoup:jsoup:1.15.3")
+    // 태그 UI
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
 
     // 당겨서 새로고침
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // Paging3
+    implementation ("androidx.room:room-paging:2.6.1")
+
+    // Image Loader
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+
+    // API
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // DI
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 }

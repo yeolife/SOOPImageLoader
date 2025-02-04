@@ -1,10 +1,10 @@
-package com.example.soopimageloader.data.model
+package com.example.soopimageloader.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CategoryData(
+data class CategoryDataDto(
     @SerializedName("is_more")
     val isMore: Boolean,
     val offset: Int,
-    val list: List<Category>
+    val list: List<CategoryDto>
 )
