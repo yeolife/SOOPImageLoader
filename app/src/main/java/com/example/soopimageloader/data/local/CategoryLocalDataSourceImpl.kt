@@ -6,11 +6,11 @@ import javax.inject.Inject
 class CategoryLocalDataSourceImpl @Inject constructor(
     private val categoryDao: CategoryDao
 ): CategoryLocalDataSource {
-    override fun getCategories(): Flow<List<CategoryEntity>> {
-        TODO("Not yet implemented")
-    }
+    override fun getCategories(): Flow<List<CategoryEntity>> =
+        categoryDao.getCategories()
 
     override suspend fun saveCategories(categories: List<CategoryEntity>) {
-        TODO("Not yet implemented")
+        categoryDao.clearCategories()
+        categoryDao.insertCategories(categories)
     }
 }

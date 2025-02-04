@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
 import com.example.soopimageloader.databinding.FragmentCategoryListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -38,16 +39,13 @@ class CategoryFragment : Fragment() {
         initAdapter()
 
         initCollect()
-
-        viewModel.loadCategories()
     }
 
     private fun initAdapter() = with(binding) {
         rvCategories.adapter = categoryAdapter
 
         swipeRv.setOnRefreshListener {
-            // TODO Paging
-//            categoryAdapter.refresh()
+            categoryAdapter.refresh()
 
             swipeRv.isRefreshing = false
         }
@@ -55,8 +53,8 @@ class CategoryFragment : Fragment() {
 
     private fun initCollect() = viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.categories.collectLatest { pagingData ->
-
+            viewModel.categoryPagingData.collectLatest { pagingData ->
+                categoryAdapter.submitData(pagingData)
             }
         }
     }

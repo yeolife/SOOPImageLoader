@@ -1,9 +1,7 @@
 package com.example.soopimageloader.data.remote
 
-import com.example.soopimageloader.data.remote.dto.CategoryDto
-import com.example.soopimageloader.data.remote.dto.DataResource
-import kotlinx.coroutines.flow.Flow
+import com.example.soopimageloader.data.remote.dto.CategoryResponseDto
 
 interface CategoryRemoteDataSource {
-    suspend fun fetchCategories(): Flow<DataResource<List<CategoryDto>>>
+    suspend fun fetchCategories(page: Int, pageSize: Int, offset: Int): CategoryResponseDto
 }

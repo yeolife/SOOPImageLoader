@@ -3,6 +3,7 @@ package com.example.soopimageloader.ui.Category
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.example.soopimageloader.R
 import com.example.soopimageloader.databinding.ListItemThumbnailBinding
 import com.example.soopimageloader.utils.formatWithCommas
 
-class CategoryAdapter: ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
+class CategoryAdapter: PagingDataAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = ListItemThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +20,7 @@ class CategoryAdapter: ListAdapter<Category, CategoryAdapter.CategoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class CategoryViewHolder(private val binding: ListItemThumbnailBinding)

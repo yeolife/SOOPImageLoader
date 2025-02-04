@@ -67,15 +67,21 @@ dependencies {
 
     // Paging3
     implementation ("androidx.room:room-paging:2.6.1")
+    implementation ("androidx.paging:paging-runtime-ktx:3.3.5")
 
     // Image Loader
     implementation("com.github.bumptech.glide:glide:4.12.0")
 
-    // API
+    // Networking
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
 
     // DI
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    // Room DB
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }
