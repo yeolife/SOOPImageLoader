@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/padding_8"
-    android:layout_marginTop="@dimen/padding_12"
     android:background="@drawable/live_rounded"
     android:elevation="@dimen/padding_8">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/siv_onAir"
-        android:layout_width="@dimen/size_8"
-        android:layout_height="@dimen/size_8"
-        android:layout_marginEnd="@dimen/padding_12"
+        android:layout_width="@dimen/size_6"
+        android:layout_height="@dimen/size_6"
+        android:layout_marginEnd="@dimen/padding_8"
         android:background="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_count"
@@ -26,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_10"
+        android:textSize="@dimen/text_8"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
