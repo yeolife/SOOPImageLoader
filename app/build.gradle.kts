@@ -1,13 +1,19 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
     id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.example.soopimageloader"
     compileSdk = 35
+
+    val properties = Properties()
+    properties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
         applicationId = "com.example.soopimageloader"
@@ -17,6 +23,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", properties.getProperty("baseUrl"))
     }
 
     buildTypes {
@@ -46,6 +53,9 @@ android {
 
 dependencies {
 
+    // Fragment
+    implementation (libs.androidx.fragment.ktx)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -55,33 +65,32 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Lifecycle
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-    implementation ("androidx.fragment:fragment-ktx:1.8.5")
-
-    // 태그 UI
-    implementation ("com.google.android.flexbox:flexbox:3.0.0")
-
-    // 당겨서 새로고침
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
-    // Paging3
-    implementation ("androidx.room:room-paging:2.6.1")
-    implementation ("androidx.paging:paging-runtime-ktx:3.3.5")
-
-    // Image Loader
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-
-    // Networking
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    // ViewModel
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
 
     // DI
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Tag UI
+    implementation (libs.flexbox)
+
+    // Swipe Refresh Layout
+    implementation(libs.androidx.swiperefreshlayout)
+
+    // Image Loader
+    implementation(libs.glide)
+
+    // Paging3
+    implementation (libs.androidx.room.paging)
+    implementation (libs.androidx.paging.runtime.ktx)
+
+    // Networking
+    implementation(libs.retrofit)
+    implementation (libs.converter.gson)
 
     // Room DB
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

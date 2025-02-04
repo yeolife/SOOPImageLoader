@@ -1,5 +1,6 @@
 package com.example.soopimageloader.di
 
+import com.example.soopimageloader.BuildConfig
 import com.example.soopimageloader.data.remote.CategoryAPI
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://sch.sooplive.co.kr/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
