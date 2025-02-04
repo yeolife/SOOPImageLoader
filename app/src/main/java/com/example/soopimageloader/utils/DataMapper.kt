@@ -1,10 +1,10 @@
 package com.example.soopimageloader.utils
 
 import com.example.soopimageloader.data.remote.dto.CategoryDto
-import com.example.soopimageloader.ui.Category.Category
+import com.example.soopimageloader.ui.category.CategoryItem
 
 object DataMapper {
-    fun CategoryDto.toDomain() = Category(
+    fun CategoryDto.toDomain() = CategoryItem(
         categoryNo = this.categoryNo,
         categoryName = this.categoryName,
         viewCnt = this.viewCnt,
@@ -12,5 +12,5 @@ object DataMapper {
         cateImg = this.cateImg
     )
 
-    fun List<CategoryDto>.toDomainList(): List<Category> = map { it.toDomain() }
+    fun List<CategoryDto>.toDomainList(): List<CategoryItem> = map { it.toDomain() }
 }

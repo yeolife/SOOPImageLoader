@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.soopimageloader.ui.Category.CategoryFragment"
+    android:name="com.example.soopimageloader.ui.category.CategoryFragment"
     tools:context=".ui.MainActivity">
 </androidx.fragment.app.FragmentContainerView>

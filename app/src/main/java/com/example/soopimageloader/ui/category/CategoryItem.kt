@@ -1,6 +1,6 @@
-package com.example.soopimageloader.ui.Category
+package com.example.soopimageloader.ui.category
 
-data class Category(
+data class CategoryItem(
     val categoryNo: String,
     val categoryName: String,
     val viewCnt: Int,

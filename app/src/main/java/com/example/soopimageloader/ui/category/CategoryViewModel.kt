@@ -1,4 +1,4 @@
-package com.example.soopimageloader.ui.Category
+package com.example.soopimageloader.ui.category
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ): ViewModel() {
-    val categoryPagingData: Flow<PagingData<Category>> =
+    val categoryPagingData: Flow<PagingData<CategoryItem>> =
         categoryRepository.getCategories()
             .cachedIn(viewModelScope)
 }

@@ -1,18 +1,17 @@
-package com.example.soopimageloader.ui.Category
+package com.example.soopimageloader.ui.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.soopimageloader.R
 import com.example.soopimageloader.databinding.ListItemThumbnailBinding
 import com.example.soopimageloader.utils.formatWithCommas
 
-class CategoryAdapter: PagingDataAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
+class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = ListItemThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,7 +25,7 @@ class CategoryAdapter: PagingDataAdapter<Category, CategoryAdapter.CategoryViewH
     class CategoryViewHolder(private val binding: ListItemThumbnailBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(category: Category) {
+        fun bind(category: CategoryItem) {
             with(binding) {
                 tvTitle.text = category.categoryName
                 liveCount.tvCount.text = formatWithCommas(category.viewCnt)
@@ -42,17 +41,18 @@ class CategoryAdapter: PagingDataAdapter<Category, CategoryAdapter.CategoryViewH
 
                 Glide.with(ivThumbnail.context)
                     .load(category.cateImg)
+                    .thumbnail(0.25f)
                     .into(binding.ivThumbnail)
             }
         }
     }
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Category>() {
-            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<CategoryItem>() {
+            override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
                 return oldItem.categoryNo == newItem.categoryNo
             }
 
-            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+            override fun areContentsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
                 return oldItem == newItem
             }
         }
