@@ -11,6 +11,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category")
     fun getCategories(): PagingSource<Int, CategoryEntity>
 
+    @Query("SELECT cate_img FROM category WHERE createdAt < :expirationTime")
+    suspend fun getExpiredImagePaths(expirationTime: Long): List<String>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCategories(categories: List<CategoryEntity>)
 
@@ -19,9 +22,4 @@ interface CategoryDao {
 
     @Query("DELETE FROM category WHERE createdAt < :expirationTime")
     fun deleteOldCategories(expirationTime: Long)
-
-    fun cleanupOldData() {
-        val expirationTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000)
-        deleteOldCategories(expirationTime)
-    }
 }

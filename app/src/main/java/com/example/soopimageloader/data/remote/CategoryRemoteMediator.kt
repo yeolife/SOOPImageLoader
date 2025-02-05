@@ -25,7 +25,22 @@ class CategoryRemoteMediator @Inject constructor(
     private var currentPage = 1
 
     override suspend fun initialize(): InitializeAction {
+        // LRU 적용 -> 24시간이 지난 캐시 삭제
+        cleanupOldData()
+
         return InitializeAction.LAUNCH_INITIAL_REFRESH
+    }
+
+    private suspend fun cleanupOldData() {
+        val expirationTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000)
+
+        db.withTransaction {
+            val expiredPaths = categoryDao.getExpiredImagePaths(expirationTime)
+
+            categoryDao.deleteOldCategories(expirationTime)
+
+            localImageManager.cleanupDiskCache(expiredPaths)
+        }
     }
 
     override suspend fun load(
