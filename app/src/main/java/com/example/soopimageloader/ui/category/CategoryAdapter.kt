@@ -46,10 +46,12 @@ class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryV
 
                 if (imagePath.startsWith("http")) { // 원격
                     glideRequest.load(imagePath)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .skipMemoryCache(false)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(binding.ivThumbnail)
                 } else { // 로컬
                     glideRequest.load(File(imagePath))
+                        .skipMemoryCache(false)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(binding.ivThumbnail)
                 }

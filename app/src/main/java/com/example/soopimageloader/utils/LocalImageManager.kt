@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,7 +28,6 @@ class LocalImageManager @Inject constructor(
                 val bitmap = Glide.with(context)
                     .asBitmap()
                     .load(imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .submit()
                     .get()
 
@@ -42,12 +42,13 @@ class LocalImageManager @Inject constructor(
         }
     }
 
-    fun cleanupCache(maxAgeMillis: Long = 7 * 24 * 60 * 60 * 1000L) {
+    fun cleanupCache(maxAgeMillis: Long = 24 * 60 * 60 * 1000L) {
         val currentTime = System.currentTimeMillis()
-        cacheDir.listFiles()?.forEach { file ->
-            if (currentTime - file.lastModified() > maxAgeMillis) {
-                file.delete()
-            }
-        }
+
+        val expiredFiles = cacheDir.listFiles()
+            ?.filter { currentTime - it.lastModified() > maxAgeMillis }
+            ?.sortedBy { it.lastModified() }
+
+        expiredFiles?.forEach { it.delete() }
     }
 }

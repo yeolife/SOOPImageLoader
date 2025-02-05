@@ -14,6 +14,11 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCategories(categories: List<CategoryEntity>)
 
-    @Query("DELETE FROM category")
-    suspend fun clearCategories()
+    @Query("DELETE FROM category WHERE createdAt < :expirationTime")
+    fun deleteOldCategories(expirationTime: Long)
+
+    fun cleanupOldData() {
+        val expirationTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000)
+        deleteOldCategories(expirationTime)
+    }
 }
