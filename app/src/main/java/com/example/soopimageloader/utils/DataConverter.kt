@@ -2,7 +2,7 @@ package com.example.soopimageloader.utils
 
 import androidx.room.TypeConverter
 
-class DataConverter {
+object DataConverter {
     @TypeConverter
     fun fromString(value: String): List<String> {
         return value.split(",").map { it.trim() }

@@ -7,9 +7,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.soopimageloader.R
 import com.example.soopimageloader.databinding.ListItemThumbnailBinding
 import com.example.soopimageloader.utils.formatWithCommas
+import java.io.File
 
 class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
 
@@ -39,10 +41,18 @@ class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryV
                     fbTags.addView(tagView)
                 }
 
-                Glide.with(ivThumbnail.context)
-                    .load(category.cateImg)
-                    .thumbnail(0.25f)
-                    .into(binding.ivThumbnail)
+                val imagePath = category.cateImg
+                val glideRequest = Glide.with(itemView.context)
+
+                if (imagePath.startsWith("http")) { // 원격
+                    glideRequest.load(imagePath)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .into(binding.ivThumbnail)
+                } else { // 로컬
+                    glideRequest.load(File(imagePath))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(binding.ivThumbnail)
+                }
             }
         }
     }

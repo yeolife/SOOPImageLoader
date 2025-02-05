@@ -62,18 +62,4 @@
         app:justifyContent="flex_start">
 
     </com.google.android.flexbox.FlexboxLayout>
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_categories"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:overScrollMode="never"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/cv_thumbnail"-->
-<!--        app:layout_constraintStart_toStartOf="@id/cv_thumbnail"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tv_title"-->
-<!--        tools:listitem="@layout/list_item_category" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

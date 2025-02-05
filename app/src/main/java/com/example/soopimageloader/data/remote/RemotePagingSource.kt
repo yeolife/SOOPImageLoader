@@ -2,11 +2,16 @@ package com.example.soopimageloader.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.soopimageloader.data.local.CategoryDao
 import com.example.soopimageloader.data.remote.dto.CategoryDto
+import com.example.soopimageloader.utils.DataMapper.toEntity
+import com.example.soopimageloader.utils.LocalImageManager
 import javax.inject.Inject
 
 class RemotePagingSource @Inject constructor(
-    private val categoryRemoteDataSource: CategoryRemoteDataSource
+    private val categoryRemoteDataSource: CategoryRemoteDataSource,
+    private val categoryDao: CategoryDao,
+    private val localImageManager: LocalImageManager
 ) : PagingSource<Int, CategoryDto>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CategoryDto> {
