@@ -16,15 +16,18 @@ import javax.inject.Singleton
 class LocalImageManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
+
+    private val cacheDir = context.cacheDir
+
     suspend fun downloadImageToLocal(imageUrl: String, categoryNo: String): String {
         return withContext(Dispatchers.IO) {
             try {
-                val file = File(context.cacheDir, "cate_$categoryNo.webp")
+                val file = File(cacheDir, "cate_$categoryNo.webp")
 
                 val bitmap = Glide.with(context)
                     .asBitmap()
                     .load(imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .submit()
                     .get()
 
@@ -35,6 +38,15 @@ class LocalImageManager @Inject constructor(
                 file.absolutePath
             } catch (e: Exception) {
                 imageUrl
+            }
+        }
+    }
+
+    fun cleanupCache(maxAgeMillis: Long = 7 * 24 * 60 * 60 * 1000L) {
+        val currentTime = System.currentTimeMillis()
+        cacheDir.listFiles()?.forEach { file ->
+            if (currentTime - file.lastModified() > maxAgeMillis) {
+                file.delete()
             }
         }
     }
