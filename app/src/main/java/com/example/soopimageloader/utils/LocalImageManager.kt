@@ -28,6 +28,8 @@ class LocalImageManager @Inject constructor(
                 val bitmap = Glide.with(context)
                     .asBitmap()
                     .load(imageUrl)
+                    .skipMemoryCache(false)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .submit()
                     .get()
 
@@ -42,13 +44,12 @@ class LocalImageManager @Inject constructor(
         }
     }
 
-    fun cleanupCache(maxAgeMillis: Long = 24 * 60 * 60 * 1000L) {
-        val currentTime = System.currentTimeMillis()
-
-        val expiredFiles = cacheDir.listFiles()
-            ?.filter { currentTime - it.lastModified() > maxAgeMillis }
-            ?.sortedBy { it.lastModified() }
-
-        expiredFiles?.forEach { it.delete() }
+    fun cleanupDiskCache(expiredPaths: List<String>) {
+        expiredPaths.forEach { path ->
+            val file = File(path)
+            if (file.exists()) {
+                file.delete()
+            }
+        }
     }
 }
