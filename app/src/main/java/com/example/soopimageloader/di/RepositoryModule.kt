@@ -1,10 +1,9 @@
 package com.example.soopimageloader.di
 
 import com.example.soopimageloader.data.local.CategoryDao
-import com.example.soopimageloader.data.remote.CategoryRemoteDataSource
+import com.example.soopimageloader.data.remote.CategoryRemoteMediator
 import com.example.soopimageloader.data.repository.CategoryRepository
 import com.example.soopimageloader.data.repository.CategoryRepositoryImpl
-import com.example.soopimageloader.utils.LocalImageManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +17,7 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideCategoryRepository(
-        categoryRemoteDataSource: CategoryRemoteDataSource,
-        categoryDao: CategoryDao,
-        localImageManager: LocalImageManager
-        ): CategoryRepository = CategoryRepositoryImpl(categoryRemoteDataSource, categoryDao, localImageManager)
+        categoryRemoteMediator: CategoryRemoteMediator,
+        categoryDao: CategoryDao
+        ): CategoryRepository = CategoryRepositoryImpl(categoryRemoteMediator, categoryDao)
 }

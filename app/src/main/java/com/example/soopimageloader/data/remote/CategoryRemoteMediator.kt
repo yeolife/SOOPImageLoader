@@ -25,7 +25,6 @@ class CategoryRemoteMediator @Inject constructor(
     private var currentPage = 1
 
     override suspend fun initialize(): InitializeAction {
-        Log.d("CategoryRemoteMediator", "Initialize called")
         return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
@@ -34,64 +33,47 @@ class CategoryRemoteMediator @Inject constructor(
         state: PagingState<Int, CategoryEntity>
     ): MediatorResult {
         return try {
-            Log.d("CategoryRemoteMediator", "Previous currentPage: $currentPage")
-
-            currentPage = when (loadType) {
-                LoadType.REFRESH -> {
-                    Log.d("CategoryRemoteMediator", "LoadType.REFRESH - Setting page to 1")
-                    1
-                }
-                LoadType.PREPEND -> {
-                    Log.d("CategoryRemoteMediator", "LoadType.PREPEND - Returning success")
-                    return MediatorResult.Success(endOfPaginationReached = true)
-                }
-                LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull()
-                    Log.d("CategoryRemoteMediator", "LoadType.APPEND - LastItem: ${lastItem?.categoryNo}")
-                    if (lastItem == null) {
-                        Log.d("CategoryRemoteMediator", "No last item, returning success")
-                        return MediatorResult.Success(endOfPaginationReached = true)
-                    }
-                    currentPage + 1
-                }
+            if (loadType == LoadType.PREPEND) {
+                return MediatorResult.Success(endOfPaginationReached = true)
             }
 
-            Log.d("CategoryRemoteMediator", "Fetching page: $currentPage")
+            val page = when (loadType) {
+                LoadType.REFRESH -> 1
+                LoadType.APPEND -> {
+                    state.pages.lastOrNull()?.nextKey ?: (currentPage + 1)
+                }
+                else -> currentPage
+            }
+
+            val pageSize = state.config.pageSize
+            val offset = (page - 1) * pageSize
 
             val response = categoryRemoteDataSource.fetchCategories(
-                page = currentPage,
-                pageSize = state.config.pageSize,
-                offset = (currentPage - 1) * state.config.pageSize
+                page = page,
+                pageSize = pageSize,
+                offset = offset
             )
 
-            Log.d("CategoryRemoteMediator", "Received response: ${response.data.list.size} items")
-
-            val baseLoadSequence = (currentPage - 1) * state.config.pageSize
-            val newEntities = response.data.list.mapIndexed { index, dto ->
+            val newEntities = response.data.list.map { dto ->
                 val localImagePath = localImageManager.downloadImageToLocal(dto.cateImg, dto.categoryNo)
-                dto.toEntity(
-                    localImagePath = localImagePath,
-                )
+                dto.toEntity(localImagePath = localImagePath)
             }
-
-            Log.d("CategoryRemoteMediator", "Inserting ${newEntities.size} entities into DB")
 
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    Log.d("CategoryRemoteMediator", "Clearing old data")
                     categoryDao.clearCategories()
                 }
                 categoryDao.insertCategories(newEntities)
             }
 
             val endOfPaginationReached = !response.data.isMore
-            Log.d("CategoryRemoteMediator",
-                "Page: $currentPage, Items: ${newEntities.size}, EndReached: $endOfPaginationReached")
+
+            currentPage = page
+
+            Log.d(TAG, "Page: $page, Items: ${newEntities.size}, EndReached: $endOfPaginationReached")
 
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
-            Log.e("CategoryRemoteMediator", "Error loading data", e)
-            e.printStackTrace()
             MediatorResult.Error(e)
         }
     }
