@@ -1,13 +1,6 @@
 # SOOP 모바일SDK ImageLoader 사전과제
-## 목차
-- [프로젝트 설명](#프로젝트-설명)
-- [실행 방법](#실행-방법)
-- [사용한 기술 스택](#사용한-기술-스택)
-- [구현 기능 목록](#구현-기능-목록)
 
-<br>
-
-## 프로젝트 설명
+## ☁️프로젝트 설명
 
 
 
@@ -22,7 +15,7 @@
 ## ⚡사용한 기술 스택
 
 <img src="https://github.com/user-attachments/assets/81be5aa2-ac2e-4cf3-aab4-715388ab9a05" width="500" /> <br>
-<img src="https://github.com/user-attachments/assets/bd381db1-2137-4e8d-bafd-b097165e4159" width="487" />
+<img src="https://github.com/user-attachments/assets/bd381db1-2137-4e8d-bafd-b097165e4159" width="500" />
 
 - Android Studio Koala 2024.1.1
   
@@ -44,5 +37,5 @@
 <img src="https://github.com/user-attachments/assets/cab3460e-be61-44b9-ac6d-d4de13b4c8e7" width="320" /> <br>
 #### Pagination <br>
 <img src="https://github.com/user-attachments/assets/4ececeb7-7246-48ba-a741-216c7b1a4034" width="320" /> <br>
-#### 화면 회전 <br>
+#### 가로/세로 회전 <br>
 <img src="https://github.com/user-attachments/assets/c004bd94-dec1-4631-8738-6f991db5f50d" width="320" />
