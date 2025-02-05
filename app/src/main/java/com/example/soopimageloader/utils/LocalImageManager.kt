@@ -23,6 +23,10 @@ class LocalImageManager @Inject constructor(
     suspend fun downloadImageToLocal(imageUrl: String, categoryNo: String): String {
         return withContext(Dispatchers.IO) {
             try {
+                if(!cacheDir.exists()) {
+                    cacheDir.mkdirs()
+                }
+
                 val file = File(cacheDir, "cate_$categoryNo.webp")
 
                 val bitmap = Glide.with(context)
