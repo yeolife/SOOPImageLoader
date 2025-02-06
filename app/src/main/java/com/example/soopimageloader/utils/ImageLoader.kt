@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface ImageLoader {
     suspend fun loadImage(url: String, imageView: ImageView)
@@ -20,9 +21,8 @@ interface ImageLoader {
     suspend fun loadImageAsBitmap(url: String): Bitmap?
 }
 
-class ImageLoaderImpl @Inject constructor(
-    @ApplicationContext private val context: Context
-): ImageLoader {
+@Singleton
+class ImageLoaderImpl @Inject constructor(): ImageLoader {
     private val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
     private val cacheSize = maxMemory / 8
 
