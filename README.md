@@ -65,3 +65,29 @@ baseUrl="https://sch.sooplive.co.kr/"
 <img src="https://github.com/user-attachments/assets/4ececeb7-7246-48ba-a741-216c7b1a4034" width="320" /> <br>
 ### 가로/세로 회전 <br>
 <img src="https://github.com/user-attachments/assets/c004bd94-dec1-4631-8738-6f991db5f50d" width="320" /> <br><br>
+
+<br>
+
+## 💁‍♂️성능 개선
+
+서버에서 받아온 PNG 파일을 WEBP로 변환하여 디스크 캐싱을 했습니다. 그 결과 약 50~60%의 용량 감소를 할 수 있었습니다.
+|PNG|WEBP|
+|-----|-----|
+|<img src="https://github.com/user-attachments/assets/1afe48d5-ea20-4f75-97bb-711ebb0df657" width="500" />|<img src="https://github.com/user-attachments/assets/2170dee0-c8c0-41c2-a96e-1500f24f221c" width="500" />|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
