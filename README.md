@@ -4,10 +4,10 @@
 <a href="https://www.sooplive.co.kr/directory/category">SOOP 홈페이지</a>의 카테고리 정보를 API로 가져와 썸네일을 표시하는 안드로이드 앱입니다.<br><br>
 - ImageLoader<br>
   - 이미지 원격 URL 로드: 서버의 이미지 URL을 비동기로 로드하여 ImageView 표시
-  - 이미지 로컬 경로 로드: 디바이스에 저장된 이미지 파일을 비동기로 로드하여 ImageView 표시
+  - 이미지 로컬 경로 로드: 기기에 저장된 이미지 파일을 비동기로 로드하여 ImageView 표시
   - 로딩한 이미지 Bitmap 반환: 이미지를 로드한 결과를 Bitmap으로 반환
 - 디스크 캐시<br>
-<a href="https://developer.android.com/topic/libraries/architecture/paging/v3-network-db?hl=ko">RemoteMediator</a>를 활용하여 로컬DB 기반의 Pagination을 지원하는 커스텀 디스크 캐싱을 구현했습니다. Google에서 제공하는 RemoteMediator는 서버 데이터를 페이지 단위로 가져오면서, 로컬DB에 저장하여 오프라인에서도 데이터를 유지할 수 있도록 돕는 기술입니다. 이 기술에 아이디어를 추가하여 효율적인 데이터 호출과 함께, 로컬DB로 디스크 캐시 효과를 낼 수 있지 않을까 생각하여 도전했습니다. '캐시'라는 정체성을 명확히 하기 위해서, LRU 알고리즘 캐싱 정책과 유사하게 로컬 DB에 캐시 유효기간을 24시간으로 정했고, 캐시 용량이 크다면 사용되지 않은 순서로 20개 삭제 정책을 적용했습니다.<br>
+<a href="https://developer.android.com/topic/libraries/architecture/paging/v3-network-db?hl=ko">RemoteMediator</a>를 활용하여 로컬DB 기반의 Pagination을 지원하는 커스텀 디스크 캐싱을 구현했습니다. Google에서 제공하는 RemoteMediator는 서버 데이터를 페이지 단위로 가져오면서, 로컬DB에 저장하여 오프라인에서도 데이터를 유지할 수 있도록 돕는 기술입니다. 이 기술에 아이디어를 추가하여 효율적인 데이터 호출과 함께, 로컬DB로 디스크 캐시 효과를 낼 수 있지 않을까 생각하여 도전했습니다. '캐시'라는 정체성을 명확히 하기 위해서, LRU 알고리즘 캐싱 정책과 유사하게 로컬 DB에 캐시 유효기간을 24시간으로 정했고, 전체 캐시 용량이 크다면 사용되지 않은 순서로 20개 삭제 정책을 적용했습니다.<br>
 - 메모리 캐시<br>
 Android LruCache를 적용하여 동일한 이미지를 반복 로드하지 않게 했으며, 최근에 사용되지 않은 이미지부터 순차적으로 메모리에서 제거하도록 했습니다.
 - 화면 회전<br>
@@ -35,7 +35,8 @@ Android LruCache를 적용하여 동일한 이미지를 반복 로드하지 않�
 git clone https://github.com/yeolife/SOOPImageLoader.git
 cd SOOPImageLoader
 ```
-<br>SOOPImageLoader(가장 상위 폴더)에서 local.properties에 아래 내용을 붙여넣기 합니다. 압축 해제 과정에서 최상위 폴더가 하나 생길 수 있습니다!!
+<br>SOOPImageLoader(가장 상위 폴더)에서 local.properties에 아래 내용을 붙여넣기 합니다.
+<br>압축 해제할 때 최상위 폴더가 생길 수 있습니다!
 ```
 baseUrl="https://sch.sooplive.co.kr/"
 ```
@@ -68,7 +69,7 @@ baseUrl="https://sch.sooplive.co.kr/"
 
 <br>
 
-## 💁‍♂️성능 개선
+## ✨성능 개선
 
 서버에서 받아온 PNG 파일을 WEBP로 변환하여 디스크 캐싱을 했습니다. 그 결과 약 50~60%의 용량 감소를 할 수 있었습니다.
 |PNG|WEBP|
