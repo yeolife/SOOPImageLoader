@@ -50,7 +50,7 @@ class ImageLoaderImpl @Inject constructor(): ImageLoader {
                             }
                         }
                     } catch (e: Exception) {
-                        Log.e(TAG, "Error loading image from URL: $url", e)
+                        e.stackTraceToString()
                         null
                     }
                 }
@@ -62,7 +62,7 @@ class ImageLoaderImpl @Inject constructor(): ImageLoader {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error in loadImage: $url", e)
+            e.stackTraceToString()
         }
     }
 
@@ -84,7 +84,7 @@ class ImageLoaderImpl @Inject constructor(): ImageLoader {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error loading image from file: $filePath", e)
+            e.stackTraceToString()
         }
     }
 
@@ -111,7 +111,7 @@ class ImageLoaderImpl @Inject constructor(): ImageLoader {
 
             bitmap
         } catch (e: Exception) {
-            Log.e(TAG, "Error loading bitmap from URL: $url", e)
+            e.stackTraceToString()
             null
         }
     }
