@@ -8,18 +8,28 @@
 
 ## 🚥실행 방법
 
+- Android Studio Koala 2024.1.1
+- 최소 SDK(minSdk): 24
+- 대상 SDK(targetSdk): 35
+- JDK 버전: Java 17
 
-
-<br>
+<br>아래 Git 주소에서 소스파일을 받습니다.
+```
+git clone https://github.com/yeolife/SOOPImageLoader.git
+cd SOOPImageLoader
+```
+<br>SOOPImageLoader(가장 상위 폴더)에서 메모장으로 local.properties를 생성하고 아래 내용을 붙여넣기 합니다.
+```
+baseUrl="https://sch.sooplive.co.kr/"
+```
+<br>Android Studio 상단에 'Sync Project with Gradle'(ctrl+shift+o) 버튼으로 빌드 후, 앱을 실행(shift+F10)하시면 됩니다!
+<br><br>
 
 ## ⚡사용한 기술 스택
 
 <img src="https://github.com/user-attachments/assets/81be5aa2-ac2e-4cf3-aab4-715388ab9a05" width="500" /> <br>
 <img src="https://github.com/user-attachments/assets/bd381db1-2137-4e8d-bafd-b097165e4159" width="500" />
 
-- Android Studio Koala 2024.1.1
-  
-- Kotlin 1.9.0
 - ViewModel: 화면 회전 등 Fragment의 생명주기에 영향을 받지 않으면서 데이터를 유지하기 위해 사용했습니다.
 - Hilt: 의존성 주입을 통해 클래스 간 결합도를 줄이고, Data Layer의 객체 생성을 효율적으로 관리하기 위해 사용했습니다.
 - Paging3: RemoteMediator로 효율적인 데이터 로드와 로컬 캐싱을 동시에 하기 위해 사용했습니다.
