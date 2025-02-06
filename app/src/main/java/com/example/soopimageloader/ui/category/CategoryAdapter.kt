@@ -6,17 +6,21 @@ import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.soopimageloader.R
 import com.example.soopimageloader.databinding.ListItemThumbnailBinding
+import com.example.soopimageloader.utils.ImageLoader
 import com.example.soopimageloader.utils.formatWithCommas
-import java.io.File
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
+class CategoryAdapter(
+    private val imageLoader: ImageLoader,
+    private val lifecycleScope: CoroutineScope
+) : PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val binding = ListItemThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ListItemThumbnailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoryViewHolder(binding)
     }
 
@@ -24,40 +28,35 @@ class CategoryAdapter: PagingDataAdapter<CategoryItem, CategoryAdapter.CategoryV
         getItem(position)?.let { holder.bind(it) }
     }
 
-    class CategoryViewHolder(private val binding: ListItemThumbnailBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class CategoryViewHolder(private val binding: ListItemThumbnailBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: CategoryItem) {
-            with(binding) {
-                tvTitle.text = category.categoryName
-                liveCount.tvCount.text = formatWithCommas(category.viewCnt)
 
-                fbTags.removeAllViews()
-                for(tag in category.fixedTags) {
-                    val tagView = LayoutInflater.from(fbTags.context)
-                        .inflate(R.layout.list_item_category, fbTags, false) as TextView
+            binding.tvTitle.text = category.categoryName
+            binding.liveCount.tvCount.text = formatWithCommas(category.viewCnt)
 
-                    tagView.text = tag
-                    fbTags.addView(tagView)
-                }
+            binding.fbTags.removeAllViews()
+            for (tag in category.fixedTags) {
+                val tagView = LayoutInflater.from(binding.fbTags.context)
+                    .inflate(R.layout.list_item_category, binding.fbTags, false) as TextView
 
-                val imagePath = category.cateImg
-                val glideRequest = Glide.with(itemView.context)
+                tagView.text = tag
+                binding.fbTags.addView(tagView)
+            }
 
-                if (imagePath.startsWith("http")) { // 원격
-                    glideRequest.load(imagePath)
-                        .skipMemoryCache(false)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(binding.ivThumbnail)
-                } else { // 로컬
-                    glideRequest.load(File(imagePath))
-                        .skipMemoryCache(false)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(binding.ivThumbnail)
+            val imagePath = category.cateImg
+
+            lifecycleScope.launch {
+                if (imagePath.startsWith("http")) {
+                    imageLoader.loadImage(imagePath, binding.ivThumbnail)
+                } else {
+                    imageLoader.loadImageFromFile(imagePath, binding.ivThumbnail)
                 }
             }
         }
     }
+
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<CategoryItem>() {
             override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
