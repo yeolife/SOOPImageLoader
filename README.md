@@ -39,7 +39,7 @@ cd SOOPImageLoader
 ```
 baseUrl="https://sch.sooplive.co.kr/"
 ```
-<br>Android Studio 상단에 'Sync Project with Gradle'(Ctrl+Shift+O) 버튼으로 빌드 후, 앱을 실행(Shift+F10)하시면 됩니다!
+<br>Android Studio 상단에 'Sync Project with Gradle'(Ctrl+Shift+O) 버튼으로 빌드 후, 앱을 실행(Shift+F10)합니다.
 <br><br>
 
 ## ⚡사용한 기술 스택
