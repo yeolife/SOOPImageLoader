@@ -60,7 +60,7 @@ baseUrl="https://sch.sooplive.co.kr/"
 <br>
 
 ## 💁‍♂️구현 기능 목록
-### Caching <br>
+### Caching 및 오프라인 동기화 <br>
 <img src="https://github.com/user-attachments/assets/cab3460e-be61-44b9-ac6d-d4de13b4c8e7" width="320" /> <br>
 ### Pagination <br>
 <img src="https://github.com/user-attachments/assets/4ececeb7-7246-48ba-a741-216c7b1a4034" width="320" /> <br>
