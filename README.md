@@ -15,9 +15,7 @@ Android LruCache를 적용하여 동일한 이미지를 반복 로드하지 않�
   - 세로 모드: 2열
   - 가로 모드: 4열
 
-<br>
-
-장점
+### 장점
 - 네트워크 요청 최소화: 일반 Pagination은 서버 데이터에 의존하지만, RemoteMediator로 로컬 DB의 정보를 사용하여 불필요한 네트워크 요청을 필요에 따라 개발자가 분기 처리할 수 있습니다.
 - 캐시 정책 커스텀 가능: Glide는 Google 캐시 내부 정책에 따라야 하지만, 위 방법은 개발자가 캐시 유효기간을 직접 설정하고 캐시에 접근이 가능합니다. 
 
@@ -66,8 +64,6 @@ baseUrl="https://sch.sooplive.co.kr/"
 <img src="https://github.com/user-attachments/assets/4ececeb7-7246-48ba-a741-216c7b1a4034" width="320" /> <br>
 ### 가로/세로 회전 <br>
 <img src="https://github.com/user-attachments/assets/c004bd94-dec1-4631-8738-6f991db5f50d" width="320" /> <br><br>
-
-<br>
 
 ## ✨성능 개선
 
