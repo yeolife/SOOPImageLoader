@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.soopimageloader.databinding.FragmentCategoryListBinding
 import com.example.soopimageloader.utils.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject

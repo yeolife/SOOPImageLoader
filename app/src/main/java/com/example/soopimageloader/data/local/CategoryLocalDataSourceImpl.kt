@@ -1,7 +1,6 @@
 package com.example.soopimageloader.data.local
 
 import androidx.paging.PagingSource
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CategoryLocalDataSourceImpl @Inject constructor(

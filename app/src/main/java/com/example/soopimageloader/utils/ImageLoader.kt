@@ -1,13 +1,11 @@
 package com.example.soopimageloader.utils
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.util.LruCache
 import android.widget.ImageView
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
