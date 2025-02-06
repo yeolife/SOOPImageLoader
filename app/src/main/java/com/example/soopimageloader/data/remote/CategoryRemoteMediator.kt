@@ -31,18 +31,6 @@ class CategoryRemoteMediator @Inject constructor(
         return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
-    private suspend fun cleanupOldData() {
-        val expirationTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000)
-
-        db.withTransaction {
-            val expiredPaths = categoryDao.getExpiredImagePaths(expirationTime)
-
-            categoryDao.deleteOldCategories(expirationTime)
-
-            localImageManager.cleanupDiskCache(expiredPaths)
-        }
-    }
-
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, CategoryEntity>
@@ -69,9 +57,13 @@ class CategoryRemoteMediator @Inject constructor(
                 offset = offset
             )
 
+            if(localImageManager.isCacheFull()) {
+                deleteLeastAccessedCategories()
+            }
+
             val newEntities = response.data.list.map { dto ->
                 val localImagePath = localImageManager.downloadImageToLocal(dto.cateImg, dto.categoryNo)
-                dto.toEntity(localImagePath = localImagePath)
+                dto.toEntity(localImagePath = localImagePath, lastAccessed = System.currentTimeMillis())
             }
 
             db.withTransaction {
@@ -90,6 +82,27 @@ class CategoryRemoteMediator @Inject constructor(
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
             MediatorResult.Error(e)
+        }
+    }
+
+    private suspend fun cleanupOldData() {
+        val expirationTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000)
+
+        db.withTransaction {
+            val expiredPaths = categoryDao.getExpiredImagePaths(expirationTime)
+
+            categoryDao.deleteOldCategories(expirationTime)
+
+            localImageManager.cleanupDiskCache(expiredPaths)
+        }
+    }
+
+    private suspend fun deleteLeastAccessedCategories(deleteLimit: Int = 20) {
+        db.withTransaction {
+            val leastAccessedCategoryNos = categoryDao.getLeastAccessedCategoryNos(deleteLimit)
+            if (leastAccessedCategoryNos.isNotEmpty()) {
+                categoryDao.deleteCategoriesByNos(leastAccessedCategoryNos)
+            }
         }
     }
 }

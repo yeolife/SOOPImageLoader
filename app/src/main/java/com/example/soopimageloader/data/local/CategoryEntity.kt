@@ -11,5 +11,6 @@ data class CategoryEntity(
     @ColumnInfo(name = "view_cnt") val viewCnt: Int,
     @ColumnInfo(name = "fixed_tags") val fixedTags: String,
     @ColumnInfo(name = "cate_img") val cateImg: String,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val lastAccessed: Long = System.currentTimeMillis()
 )

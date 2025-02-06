@@ -14,7 +14,10 @@ interface CategoryDao {
     @Query("SELECT cate_img FROM category WHERE createdAt < :expirationTime")
     suspend fun getExpiredImagePaths(expirationTime: Long): List<String>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT category_no FROM category ORDER BY lastAccessed ASC LIMIT :deleteLimit")
+    suspend fun getLeastAccessedCategoryNos(deleteLimit: Int): List<String>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategories(categories: List<CategoryEntity>)
 
     @Query("DELETE FROM category")
@@ -22,4 +25,7 @@ interface CategoryDao {
 
     @Query("DELETE FROM category WHERE createdAt < :expirationTime")
     fun deleteOldCategories(expirationTime: Long)
+
+    @Query("DELETE FROM category WHERE category_no IN (:categoryNos)")
+    suspend fun deleteCategoriesByNos(categoryNos: List<String>)
 }

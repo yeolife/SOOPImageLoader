@@ -39,6 +39,14 @@ class LocalImageManager @Inject constructor(
         }
     }
 
+    fun isCacheFull(maxCacheSize: Long = 100L * 1024 * 1024): Boolean {
+        return getCacheSize() > maxCacheSize
+    }
+
+    private fun getCacheSize(): Long {
+        return cacheDir.listFiles()?.sumOf { it.length() } ?: 0
+    }
+
     fun cleanupDiskCache(expiredPaths: List<String>) {
         expiredPaths.forEach { path ->
             val file = File(path)

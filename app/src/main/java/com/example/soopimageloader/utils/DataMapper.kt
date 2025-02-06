@@ -7,12 +7,13 @@ import com.example.soopimageloader.utils.DataConverter.fromList
 import com.example.soopimageloader.utils.DataConverter.fromString
 
 object DataMapper {
-    fun CategoryDto.toEntity(localImagePath: String) = CategoryEntity(
+    fun CategoryDto.toEntity(localImagePath: String, lastAccessed: Long) = CategoryEntity(
         categoryNo = this.categoryNo,
         categoryName = this.categoryName,
         viewCnt = this.viewCnt,
         fixedTags = fromList(this.fixedTags),
         cateImg = localImagePath,
+        lastAccessed = lastAccessed
     )
 
     fun CategoryEntity.toDomain(): CategoryItem {
