@@ -35,7 +35,7 @@ Android LruCache를 적용하여 동일한 이미지를 반복 로드하지 않�
 git clone https://github.com/yeolife/SOOPImageLoader.git
 cd SOOPImageLoader
 ```
-<br>SOOPImageLoader(가장 상위 폴더)에서 메모장으로 local.properties를 생성하고 아래 내용을 붙여넣기 합니다.
+<br>SOOPImageLoader(가장 상위 폴더)에서 local.properties에 아래 내용을 붙여넣기 합니다.
 ```
 baseUrl="https://sch.sooplive.co.kr/"
 ```
