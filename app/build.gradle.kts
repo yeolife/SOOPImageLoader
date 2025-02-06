@@ -78,9 +78,6 @@ dependencies {
     // Swipe Refresh Layout
     implementation(libs.androidx.swiperefreshlayout)
 
-    // Image Loader
-    implementation(libs.glide)
-
     // Paging3
     implementation (libs.androidx.room.paging)
     implementation (libs.androidx.paging.runtime.ktx)

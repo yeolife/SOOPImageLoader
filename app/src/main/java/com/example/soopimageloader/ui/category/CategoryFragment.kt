@@ -15,9 +15,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.soopimageloader.databinding.FragmentCategoryListBinding
+import com.example.soopimageloader.utils.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -27,7 +30,10 @@ class CategoryFragment : Fragment() {
 
     private val viewModel: CategoryViewModel by viewModels()
 
-    private val categoryAdapter by lazy { CategoryAdapter() }
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
+    private val categoryAdapter by lazy { CategoryAdapter(imageLoader, viewLifecycleOwner.lifecycleScope) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
