@@ -3,8 +3,8 @@
 ## ☁️프로젝트 설명
 <a href="https://www.sooplive.co.kr/directory/category">SOOP 홈페이지</a>의 카테고리 정보를 API로 가져와 썸네일을 표시하는 안드로이드 앱입니다.<br><br>
 - ImageLoader<br>
-  - 이미지 원격 URL 로딩: 서버의 URL로 이미지를 로드하여 비동기로 ImageView에 배치합니다.
-  - 이미지 로컬 경로 로딩: 디바이스에 저장된 경로의 이미지를 로드 비동기로 ImageView에 배치합니다.
+  - 이미지 원격 URL 로드: 서버의 URL로 이미지를 로드하여 비동기로 ImageView에 배치합니다.
+  - 이미지 로컬 경로 로드: 디바이스에 저장된 경로의 이미지를 로드 비동기로 ImageView에 배치합니다.
   - 로딩한 이미지 Bitmap 반환: 서버의 URL로 이미지를 로드한 결과를 Bitmap으로 반환합니다.
 - 디스크 캐시<br>
 <a href="https://developer.android.com/topic/libraries/architecture/paging/v3-network-db?hl=ko">RemoteMediator</a>를 활용하 로컬DB 기반의 Pagination을 지원하는 커스텀 디스크 캐싱을 구현했습니다. Google에서 제공하는 RemoteMediator는 서버 데이터를 페이지 단위로 가져오면서, 로컬DB에 저장하여 오프라인에서도 데이터를 유지할 수 있도록 돕 기술입니다. 이 기술에 아이디어를 추가하 효율적인 데이터 호출과 함께, 로컬DB로 디스크 캐시 효과를 낼 수 있지 않을까 생각하여 도전했습니다. '캐시'라는 정체성을 명확히 하기 위해서, LRU 알고리즘 캐싱 정책과 유사하게 로컬 DB에 캐시 유효기간을 24시간으로 정했고, 사용되지 않은 순서 삭제 정책을 적용했습니다.<br>
