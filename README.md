@@ -4,7 +4,7 @@
 <a href="https://www.sooplive.co.kr/directory/category">SOOP 홈페이지</a>의 카테고리 정보를 API로 가져와 썸네일을 표시하는 안드로이드 앱입니다.<br><br>
 - ImageLoader<br>
   - 이미지 원격 URL 로드: 서버의 이미지 URL을 비동기로 로드하여 ImageView 표시
-  - 이미지 로컬 경로 로드: 디바이스에 저장된 이미지 파일을 피동기로 로드하여 ImageView 표시
+  - 이미지 로컬 경로 로드: 디바이스에 저장된 이미지 파일을 비동기로 로드하여 ImageView 표시
   - 로딩한 이미지 Bitmap 반환: 이미지를 로드한 결과를 Bitmap으로 반환
 - 디스크 캐시<br>
 <a href="https://developer.android.com/topic/libraries/architecture/paging/v3-network-db?hl=ko">RemoteMediator</a>를 활용하여 로컬DB 기반의 Pagination을 지원하는 커스텀 디스크 캐싱을 구현했습니다. Google에서 제공하는 RemoteMediator는 서버 데이터를 페이지 단위로 가져오면서, 로컬DB에 저장하여 오프라인에서도 데이터를 유지할 수 있도록 돕는 기술입니다. 이 기술에 아이디어를 추가하여 효율적인 데이터 호출과 함께, 로컬DB로 디스크 캐시 효과를 낼 수 있지 않을까 생각하여 도전했습니다. '캐시'라는 정체성을 명확히 하기 위해서, LRU 알고리즘 캐싱 정책과 유사하게 로컬 DB에 캐시 유효기간을 24시간으로 정했고, 사용되지 않은 순서 삭제 정책을 적용했습니다.<br>
@@ -18,8 +18,8 @@ Android LruCache를 적용하여 동일한 이미지를 반복 로드하지 않�
 <br>
 
 장점
-- 네트워크 요청 최소화: 일반 Pagination은 서버 데이터에 의존하지만, RemoteMediator는 로컬 DB의 정보를 사용하여 불필요한 네트워크 요청을 필요에 따라 개발자가 분기 처리할 수 있습니다.
-- 캐시 정책 커스텀 가능: Glide는 Google 캐시 내부 정책에 따라야 하지만, RemoteMediator는 개발자가 캐시 유효기간을 직접 설정하고 캐시에 접근이 가능합니다. 
+- 네트워크 요청 최소화: 일반 Pagination은 서버 데이터에 의존하지만, RemoteMediator로 로컬 DB의 정보를 사용하여 불필요한 네트워크 요청을 필요에 따라 개발자가 분기 처리할 수 있습니다.
+- 캐시 정책 커스텀 가능: Glide는 Google 캐시 내부 정책에 따라야 하지만, 위 방법은 개발자가 캐시 유효기간을 직접 설정하고 캐시에 접근이 가능합니다. 
 
 <br>
 
@@ -54,7 +54,7 @@ baseUrl="https://sch.sooplive.co.kr/"
 - Retrofit: SOOP 썸네일 홈페이지의 데이터를 API로 호출하기 위해 사용했습니다.
 - Gson: API로 받아온 Json 데이터를 Kotlin 객체로 변환하기 위해 사용했습니다.
 - Flexbox: 썸네일 태그 리스트를 UI에 가시성 있게 표시하기 위해 사용했습니다.
-- SwiperefreshLayout: RecyclerView에서 사용자가 직접 데이터를 세로고침할 수 있도록 하기 위해 사용했습니다.
+- SwiperefreshLayout: RecyclerView에서 사용자가 직접 데이터를 새로고침할 수 있도록 하기 위해 사용했습니다.
 
 <br>
 
