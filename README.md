@@ -1,7 +1,7 @@
 # SOOP 모바일SDK ImageLoader 사전과제
 
 ## ☁️프로젝트 설명
-
+<a href="https://developer.android.com/topic/libraries/architecture/paging/v3-network-db?hl=ko">RemoteMediator</a>를 활용해 Pagination을 지원하는 로컬DB 기반 '커스텀 디스크 캐싱'을 구현했습니다.
 
 
 <br>
@@ -22,13 +22,13 @@ cd SOOPImageLoader
 ```
 baseUrl="https://sch.sooplive.co.kr/"
 ```
-<br>Android Studio 상단에 'Sync Project with Gradle'(ctrl+shift+o) 버튼으로 빌드 후, 앱을 실행(shift+F10)하시면 됩니다!
+<br>Android Studio 상단에 'Sync Project with Gradle'(Ctrl+Shift+O) 버튼으로 빌드 후, 앱을 실행(Shift+F10)하시면 됩니다!
 <br><br>
 
 ## ⚡사용한 기술 스택
 
-<img src="https://github.com/user-attachments/assets/81be5aa2-ac2e-4cf3-aab4-715388ab9a05" width="500" /> <br>
-<img src="https://github.com/user-attachments/assets/bd381db1-2137-4e8d-bafd-b097165e4159" width="500" />
+<img src="https://github.com/user-attachments/assets/81be5aa2-ac2e-4cf3-aab4-715388ab9a05" width="800" /> <br>
+<img src="https://github.com/user-attachments/assets/bd381db1-2137-4e8d-bafd-b097165e4159" width="800" />
 
 - ViewModel: 화면 회전 등 Fragment의 생명주기에 영향을 받지 않으면서 데이터를 유지하기 위해 사용했습니다.
 - Hilt: 의존성 주입을 통해 클래스 간 결합도를 줄이고, Data Layer의 객체 생성을 효율적으로 관리하기 위해 사용했습니다.
@@ -43,9 +43,9 @@ baseUrl="https://sch.sooplive.co.kr/"
 <br>
 
 ## 💁‍♂️구현 기능 목록
-#### Caching <br>
+### Caching <br>
 <img src="https://github.com/user-attachments/assets/cab3460e-be61-44b9-ac6d-d4de13b4c8e7" width="320" /> <br>
-#### Pagination <br>
+### Pagination <br>
 <img src="https://github.com/user-attachments/assets/4ececeb7-7246-48ba-a741-216c7b1a4034" width="320" /> <br>
-#### 가로/세로 회전 <br>
-<img src="https://github.com/user-attachments/assets/c004bd94-dec1-4631-8738-6f991db5f50d" width="320" />
+### 가로/세로 회전 <br>
+<img src="https://github.com/user-attachments/assets/c004bd94-dec1-4631-8738-6f991db5f50d" width="320" /> <br><br>
