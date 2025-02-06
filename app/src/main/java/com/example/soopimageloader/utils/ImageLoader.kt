@@ -70,8 +70,14 @@ class ImageLoaderImpl @Inject constructor(): ImageLoader {
 
     override suspend fun loadImageFromFile(filePath: String, imageView: ImageView) {
         try {
-            val bitmap = withContext(Dispatchers.IO) {
-                BitmapFactory.decodeFile(filePath)
+            var bitmap = getBitmapFromMemCache(filePath)
+
+            if (bitmap == null) {
+                bitmap = withContext(Dispatchers.IO) {
+                    BitmapFactory.decodeFile(filePath)?.also { decodedBitmap ->
+                        addBitmapToMemoryCache(filePath, decodedBitmap)
+                    }
+                }
             }
 
             withContext(Dispatchers.Main) {
